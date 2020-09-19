@@ -13,7 +13,7 @@ while i < n:
     if (word.find(word1) != -1) and (last[i] != 0):
         word = word.replace(word1[i], word2[i], 1)
         i = 0
-    if last[i] = 0:
+    if last[i] == 0:
         word = word.replace(word1[i], word2[i], 1)
         break
 print(word)
