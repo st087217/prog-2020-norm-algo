@@ -1,8 +1,10 @@
-word = input()
-n = int(input())
-word1 = [""] * n
-word2 = [""] * n
-last = [0] * n
+file_way =
+with (file_way, 'r') as file:
+    word = file.readline()
+    n = int(file.readline())
+    word1 = [""] * n
+    word2 = [""] * n
+    last = [0] * n
 for i in range(n):
     str = input()
     str = str.split(",")
