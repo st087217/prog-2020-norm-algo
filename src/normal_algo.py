@@ -17,7 +17,7 @@ with (file, 'r') as file:
         word_after[i] = string[1]
         last_string[i] = int(string[2])
 while i < n:
-    if word_before[i]!=(e) and
+    if (word.find(word1) != -1) and (last[i] != 0)
         if (word.find(word_before) != -1) and (last_string[i] != 0):
         word = word.replace(word_before[i], word_after[i], 1)
         i = 0
