@@ -90,3 +90,26 @@ def apply_rules(rules, input):
             break
 
     return input
+
+
+def main(args):
+    """ Функция, которая реализует вычисление результата нормального алгорифма по схеме
+    и входному слову"""
+
+    try:
+        rules = read_rules(args.rules)
+    except Exception as e:
+        print("Read error: "+str(e))
+        return 1
+
+    input = args.input.read().strip()
+    try:
+        input = apply_rules(rules, input)
+    except Exception as e:
+        print("Apply rules: "+str(e))
+        return 2
+
+    args.output.write(input)
+
+    return 0
+
