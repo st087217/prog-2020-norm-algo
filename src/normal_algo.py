@@ -24,22 +24,22 @@ FINAL_DELIMITER = "=>."
 EPSILON_SYMBOL = "ε"
 
 
-def apply_rule(rule, input):
-    """ Функция, которая применяет правило к входной строке """
+def apply_rule(rule, input_word):
+    """ Функция, которая применяет марковскую подстановку к входной строке """
 
     if rule.left == EPSILON_SYMBOL:
-        return True, rule.right + input
+        return True, rule.right + input_word
 
-    if rule.left in input:
+    if rule.left in input_word:
         if rule.right == EPSILON_SYMBOL:
-            return True, input.replace(rule.left, "", 1)
-        return True, input.replace(rule.left, rule.right, 1)
+            return True, input_word.replace(rule.left, "", 1)
+        return True, input_word.replace(rule.left, rule.right, 1)
 
-    return False, input
+    return False, input_word
 
 
 def parse_rule(line):
-    """ Функция, которая разделяет правило по разделителю"""
+    """ Функция, которая разделяет марковскую подстановку по разделителю на левую и правую части"""
     rule = Rule()
 
     if FINAL_DELIMITER in line:
@@ -65,7 +65,7 @@ def parse_rule(line):
 
 
 def read_rules(source):
-    """ Функция, которая читает правила из файла"""
+    """ Функция, которая читает схему, состоящую из марковских подстановок, из файла"""
     rules = []
     for line in source:
         rules.append(parse_rule(line))
@@ -76,12 +76,12 @@ def read_rules(source):
     return rules
 
 
-def apply_rules(rules, input):
-    """ Функция, которая применяет марковские подстановки к строке """
+def apply_rules(rules, input_word):
+    """ Функция, которая применяет схему из марковских подстановок к строке """
     iterate = True
     while iterate:
         for rule in rules:
-            applied, input = apply_rule(rule, input)
+            applied, input_word = apply_rule(rule, input_word)
             if applied:
                 if rule.final:
                     iterate = False
@@ -89,7 +89,7 @@ def apply_rules(rules, input):
         else:
             break
 
-    return input
+    return input_word
 
 
 def main(args):
@@ -102,14 +102,14 @@ def main(args):
         print("Read error: "+str(e))
         return 1
 
-    input = args.input.read().strip()
+    input_word = args.input.read().strip()
     try:
-        input = apply_rules(rules, input)
+        input_word = apply_rules(rules, input_word)
     except Exception as e:
         print("Apply rules: "+str(e))
         return 2
 
-    args.output.write(input)
+    args.output.write(input_word)
 
     return 0
 
