@@ -62,3 +62,18 @@ def parse_rule(line):
         raise Exception("delimiter not found in rule "+line)
 
     return rule
+
+
+def read_rules(source):
+    """ Функция, которая читает правила из файла"""
+    rules = []
+    for line in source:
+        rules.append(parse_rule(line))
+
+    if not rules:
+        raise Exception("no rules found in rules file")
+
+    return rules
+
+
+
