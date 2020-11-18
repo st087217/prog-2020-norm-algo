@@ -36,3 +36,29 @@ def apply_rule(rule, input):
         return True, input.replace(rule.left, rule.right, 1)
 
     return False, input
+
+
+def parse_rule(line):
+    """ Функция, которая разделяет правило по разделителю"""
+    rule = Rule()
+
+    if FINAL_DELIMITER in line:
+        parts = line.split(FINAL_DELIMITER, 2)
+        rule.final = True
+        rule.left = parts[0].strip()
+        if len(parts) > 1:
+            rule.right = parts[1].strip()
+        else:
+            rule.right = ""
+    elif NON_FINAL_DELIMITER in line:
+        parts = line.split(NON_FINAL_DELIMITER, 2)
+        rule.final = False
+        rule.left = parts[0].strip()
+        if len(parts) > 1:
+            rule.right = parts[1].strip()
+        else:
+            rule.right = ""
+    else:
+        raise Exception("delimiter not found in rule "+line)
+
+    return rule
