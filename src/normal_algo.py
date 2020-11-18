@@ -76,4 +76,17 @@ def read_rules(source):
     return rules
 
 
+def apply_rules(rules, input):
+    """ Функция, которая применяет марковские подстановки к строке """
+    iterate = True
+    while iterate:
+        for rule in rules:
+            applied, input = apply_rule(rule, input)
+            if applied:
+                if rule.final:
+                    iterate = False
+                break
+        else:
+            break
 
+    return input
